@@ -1,0 +1,25 @@
+cp /scratch/work/courses/BI7653/hw1.2022/week1.sh .
+cat week1.sh | less
+chmod +x week1.sh
+./week1.sh
+
+echo script begin: $(date)
+wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00096/alignment/HG00096.chrom11.ILLUMINA.bwa.GBR.low_coverage.20120522.bam
+
+wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00096/alignment/HG00096.chrom11.ILLUMINA.bwa.GBR.low_coverage.20120522.bam.bai
+
+echo script completed: $(date)
+
+cd /scratch/bl2477
+mkdir ngs.week1
+cp /scratch/work/courses/BI7653/hw1.2022/slurm_template.sh ngs.week1
+cd ngs.week1
+mv slurm_template.sh slurmjob_template.sh
+vim slurmjob_template.sh
+
+module load samtools/intel/1.14
+which samtools
+
+module load samtools/intel/1.14
+samtools view -h HG00096.chrom11.ILLUMINA.bwa.GBR.low_coverage.20120522.bam > HG00096.chrom11.ILLUMINA.bwa.GBR.low_coverage.20120522.sam
+head -n 10 HG00096.chrom11.ILLUMINA.bwa.GBR.low_coverage.20120522.sam
